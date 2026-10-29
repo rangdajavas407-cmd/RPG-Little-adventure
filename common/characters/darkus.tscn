@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Texture2D" path="res://screens/ancient-dungeon/darkus/darkus-idle-npc.png" id="1"]
+[ext_resource type="Script" path="res://common/characters/darkus.gd" id="2"]
+[ext_resource type="PackedScene" path="res://common/areas/interact.tscn" id="3"]
+
+[sub_resource type="AtlasTexture" id="a0"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 47, 46)
+
+[sub_resource type="AtlasTexture" id="a1"]
+atlas = ExtResource("1")
+region = Rect2(47, 0, 47, 46)
+
+[sub_resource type="AtlasTexture" id="a2"]
+atlas = ExtResource("1")
+region = Rect2(94, 0, 47, 46)
+
+[sub_resource type="AtlasTexture" id="a3"]
+atlas = ExtResource("1")
+region = Rect2(141, 0, 47, 46)
+
+
+
+[sub_resource type="SpriteFrames" id="frames"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("a0")
+}, {
+"duration": 1.0,
+"texture": SubResource("a1")
+}, {
+"duration": 1.0,
+"texture": SubResource("a2")
+}, {
+"duration": 1.0,
+"texture": SubResource("a3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.5
+}]
+
+[sub_resource type="RectangleShape2D" id="body"]
+size = Vector2(14, 5)
+
+[node name="darkus" type="StaticBody2D"]
+script = ExtResource("2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("frames")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 17)
+shape = SubResource("body")
+
+[node name="talk" parent="." instance=ExtResource("3")]
+position = Vector2(0, 20)
+
+[connection signal="playerOpenedDoor" from="talk" to="." method="_on_talk_playerOpenedDoor"]

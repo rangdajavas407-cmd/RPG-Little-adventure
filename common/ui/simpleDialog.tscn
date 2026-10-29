@@ -1,0 +1,67 @@
+[gd_scene format=3]
+
+[ext_resource type="FontFile" path="res://common/themes/fonts/dogica.ttf" id="2"]
+[ext_resource type="Script" path="res://common/ui/simpleDialog.gd" id="3"]
+[ext_resource type="Texture2D" path="res://common/ui/simpleDialog/next-arrow.png" id="4"]
+[ext_resource type="Theme" path="res://common/themes/default.tres" id="7"]
+
+[node name="simpleDialog" type="CanvasLayer"]
+script = ExtResource("3")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.04
+
+[node name="window" type="Panel" parent="."]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -154.0
+offset_top = -60.0
+offset_right = 154.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("7")
+
+[node name="talkerTab" type="PanelContainer" parent="window"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = -8.0
+offset_right = 68.0
+offset_bottom = 4.0
+theme_type_variation = &"TabPanel"
+
+[node name="talker" type="Label" parent="window/talkerTab"]
+layout_mode = 2
+theme_type_variation = &"NameLabel"
+text = "Ranbyus"
+theme_override_font_sizes/font_size = 8
+
+[node name="discussion" type="RichTextLabel" parent="window"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 286.0
+offset_bottom = 50.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.93, 0.96, 1, 1)
+theme_override_fonts/normal_font = ExtResource("2")
+theme_override_font_sizes/normal_font_size = 8
+text = "texte"
+scroll_active = false
+
+[node name="nextButton" type="TextureButton" parent="window"]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 36.0
+offset_right = 304.0
+offset_bottom = 50.0
+focus_mode = 0
+texture_normal = ExtResource("4")
+stretch_mode = 3
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="pressed" from="window/nextButton" to="." method="_on_Button_pressed"]

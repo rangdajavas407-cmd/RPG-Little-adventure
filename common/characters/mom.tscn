@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://brfppr7m68mev"]
+
+[ext_resource type="Texture2D" uid="uid://dg13t1r3o6k2g" path="res://common/characters/mom/Mom-idle.png" id="1"]
+[ext_resource type="Script" uid="uid://can53xsk7xw76" path="res://common/characters/mom.gd" id="3"]
+[ext_resource type="PackedScene" path="res://common/areas/interact.tscn" id="interact_scene"]
+
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("1")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("1")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("1")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("1")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("1")
+}, {
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}, {
+"duration": 1.0,
+"texture": SubResource("5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="7"]
+size = Vector2(13.213, 4.14274)
+
+[node name="StaticBody2D" type="StaticBody2D"]
+script = ExtResource("3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 6.4)
+scale = Vector2(0.55, 0.55)
+sprite_frames = SubResource("6")
+autoplay = "default"
+frame_progress = 0.452568
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.396851, 14.5717)
+shape = SubResource("7")
+
+[node name="talk" parent="." instance=ExtResource("interact_scene")]
+position = Vector2(1, 17)
+
+[connection signal="playerOpenedDoor" from="talk" to="." method="_on_talk_playerOpenedDoor"]

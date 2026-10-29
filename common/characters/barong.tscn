@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Texture2D" path="res://screens/ancient-dungeon/shop/barong-idle-small.png" id="1"]
+[ext_resource type="Script" path="res://common/characters/barong.gd" id="2"]
+[ext_resource type="PackedScene" path="res://common/areas/interact.tscn" id="3"]
+
+[sub_resource type="AtlasTexture" id="a0"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 40, 44)
+
+[sub_resource type="AtlasTexture" id="a1"]
+atlas = ExtResource("1")
+region = Rect2(40, 0, 40, 44)
+
+[sub_resource type="AtlasTexture" id="a2"]
+atlas = ExtResource("1")
+region = Rect2(80, 0, 40, 44)
+
+[sub_resource type="AtlasTexture" id="a3"]
+atlas = ExtResource("1")
+region = Rect2(120, 0, 40, 44)
+
+[sub_resource type="AtlasTexture" id="a4"]
+atlas = ExtResource("1")
+region = Rect2(160, 0, 40, 44)
+
+[sub_resource type="SpriteFrames" id="frames"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("a0")
+}, {
+"duration": 1.0,
+"texture": SubResource("a1")
+}, {
+"duration": 1.0,
+"texture": SubResource("a2")
+}, {
+"duration": 1.0,
+"texture": SubResource("a3")
+}, {
+"duration": 1.0,
+"texture": SubResource("a4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="body"]
+size = Vector2(22, 6)
+
+[node name="barong" type="StaticBody2D"]
+script = ExtResource("2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -3)
+sprite_frames = SubResource("frames")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 18)
+shape = SubResource("body")
+
+[node name="talk" parent="." instance=ExtResource("3")]
+position = Vector2(0, 22)
+
+[connection signal="playerOpenedDoor" from="talk" to="." method="_on_talk_playerOpenedDoor"]

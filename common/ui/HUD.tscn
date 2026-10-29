@@ -1,0 +1,332 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://common/ui/HUD/life.png" id="1"]
+[ext_resource type="Script" path="res://common/ui/HUD.gd" id="2"]
+[ext_resource type="Theme" path="res://common/themes/default.tres" id="3"]
+[ext_resource type="Texture2D" path="res://common/ui/HUD/gem.png" id="4"]
+[ext_resource type="PackedScene" path="res://common/ui/inventoryList.tscn" id="5"]
+[ext_resource type="Texture2D" path="res://common/ui/HUD/xp.png" id="6"]
+[ext_resource type="Texture2D" path="res://common/ui/HUD/mana.png" id="mana_tex"]
+[ext_resource type="Texture2D" path="res://common/ui/HUD/bag.png" id="bag_tex"]
+[ext_resource type="FontFile" path="res://common/themes/fonts/dogica.ttf" id="hud_font_file"]
+
+[sub_resource type="FontVariation" id="hudFont"]
+base_font = ExtResource("hud_font_file")
+
+[node name="HUD" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("2")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource("3")
+
+[node name="barBg" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_left = 2
+offset_top = 2
+offset_right = 108
+offset_bottom = 14
+mouse_filter = 2
+color = Color(0.13, 0.125, 0.2, 0.55)
+
+[node name="lifeIcon" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 4
+offset_top = 4
+offset_right = 12
+offset_bottom = 12
+texture = ExtResource("1")
+stretch_mode = 2
+
+[node name="life" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 14
+offset_top = 2
+offset_right = 34
+offset_bottom = 14
+theme_override_fonts/font = SubResource("hudFont")
+theme_override_font_sizes/font_size = 6
+vertical_alignment = 1
+text = "50"
+
+[node name="gemIcon" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 37
+offset_top = 2
+offset_right = 49
+offset_bottom = 14
+texture = ExtResource("4")
+stretch_mode = 2
+
+[node name="gem" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 50
+offset_top = 2
+offset_right = 70
+offset_bottom = 14
+theme_override_fonts/font = SubResource("hudFont")
+theme_override_font_sizes/font_size = 6
+vertical_alignment = 1
+text = "1"
+
+[node name="xpIcon" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 73
+offset_top = 4
+offset_right = 81
+offset_bottom = 12
+texture = ExtResource("6")
+stretch_mode = 2
+
+[node name="xp" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 83
+offset_top = 2
+offset_right = 107
+offset_bottom = 14
+theme_override_fonts/font = SubResource("hudFont")
+theme_override_font_sizes/font_size = 6
+vertical_alignment = 1
+text = "0"
+
+[node name="manaBg" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_left = 2
+offset_top = 16
+offset_right = 62
+offset_bottom = 28
+mouse_filter = 2
+color = Color(0.13, 0.125, 0.2, 0.55)
+
+[node name="manaIcon" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 4
+offset_top = 18
+offset_right = 12
+offset_bottom = 26
+texture = ExtResource("mana_tex")
+stretch_mode = 2
+
+[node name="mana" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 14
+offset_top = 16
+offset_right = 61
+offset_bottom = 28
+theme_override_fonts/font = SubResource("hudFont")
+theme_override_font_sizes/font_size = 6
+vertical_alignment = 1
+text = "40/40"
+
+[node name="btnMenu" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = 2.0
+offset_right = -4.0
+offset_bottom = 14.0
+grow_horizontal = 0
+focus_mode = 0
+theme_override_font_sizes/font_size = 6
+text = "Menu"
+
+[node name="btnBag" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_top = 2.0
+offset_right = -44.0
+offset_bottom = 14.0
+grow_horizontal = 0
+focus_mode = 0
+
+[node name="icon" type="TextureRect" parent="Control/btnBag"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 2.0
+offset_right = 22.0
+offset_bottom = 10.0
+mouse_filter = 2
+texture = ExtResource("bag_tex")
+stretch_mode = 2
+
+[node name="inventoryList" parent="." instance=ExtResource("5")]
+
+[node name="modalBackdrop" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.07, 0.06, 0.1, 0.6)
+
+[node name="btnBlock" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -46.0
+offset_right = 56.0
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3")
+
+[node name="list" type="VBoxContainer" parent="btnBlock"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="title" type="Label" parent="btnBlock/list"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "Pause"
+horizontal_alignment = 1
+
+[node name="btnCancell" type="Button" parent="btnBlock/list"]
+layout_mode = 2
+text = "Reprendre"
+
+[node name="btnSave" type="Button" parent="btnBlock/list"]
+layout_mode = 2
+text = "Sauvegarder"
+
+[node name="btnParameters" type="Button" parent="btnBlock/list"]
+layout_mode = 2
+text = "Paramètres"
+
+[node name="btnQuit" type="Button" parent="btnBlock/list"]
+layout_mode = 2
+text = "Quitter"
+
+[node name="confirmation" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -30.0
+offset_right = 70.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3")
+
+[node name="list" type="VBoxContainer" parent="confirmation"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="title" type="Label" parent="confirmation/list"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "Quitter la partie ?"
+horizontal_alignment = 1
+
+[node name="warning" type="Label" parent="confirmation/list"]
+layout_mode = 2
+theme_type_variation = &"DarkLabel"
+text = "Pensez à sauvegarder !"
+horizontal_alignment = 1
+
+[node name="buttons" type="HBoxContainer" parent="confirmation/list"]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="btnYes" type="Button" parent="confirmation/list/buttons"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+text = "Oui"
+
+[node name="btnNo" type="Button" parent="confirmation/list/buttons"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+text = "Non"
+
+[node name="parameters" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -40.0
+offset_right = 70.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3")
+
+[node name="list" type="VBoxContainer" parent="parameters"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="title" type="Label" parent="parameters/list"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "Paramètres"
+horizontal_alignment = 1
+
+[node name="touchUiEnabled" type="CheckBox" parent="parameters/list"]
+layout_mode = 2
+text = "Commandes tactiles"
+
+[node name="dialogAnimationEnabled" type="CheckBox" parent="parameters/list"]
+layout_mode = 2
+text = "Texte animé"
+
+[node name="saveParameters" type="Button" parent="parameters/list"]
+layout_mode = 2
+text = "Fermer"
+
+[node name="saved" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -50.0
+offset_top = 24.0
+offset_right = 50.0
+offset_bottom = 44.0
+grow_horizontal = 2
+mouse_filter = 2
+theme = ExtResource("3")
+
+[node name="label" type="Label" parent="saved"]
+layout_mode = 2
+theme_type_variation = &"DarkLabel"
+text = "Partie sauvegardée"
+horizontal_alignment = 1
+
+[node name="savedTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="pressed" from="Control/btnMenu" to="." method="_on_Button_button_down"]
+[connection signal="pressed" from="Control/btnBag" to="." method="_on_btnBag_pressed"]
+[connection signal="closeInventory" from="inventoryList" to="." method="_on_inventoryList_closeInventory"]
+[connection signal="equipItem" from="inventoryList" to="." method="_on_inventoryList_equipItem"]
+[connection signal="useItem" from="inventoryList" to="." method="_on_inventoryList_useItem"]
+[connection signal="pressed" from="btnBlock/list/btnCancell" to="." method="_on_btnCancell_button_down"]
+[connection signal="pressed" from="btnBlock/list/btnSave" to="." method="_on_btnSave_button_down"]
+[connection signal="pressed" from="btnBlock/list/btnParameters" to="." method="_on_btnParameters_button_down"]
+[connection signal="pressed" from="btnBlock/list/btnQuit" to="." method="_on_btnQuit_button_down"]
+[connection signal="pressed" from="confirmation/list/buttons/btnYes" to="." method="_on_btnYes_button_down"]
+[connection signal="pressed" from="confirmation/list/buttons/btnNo" to="." method="_on_btnNo_button_down"]
+[connection signal="toggled" from="parameters/list/touchUiEnabled" to="." method="_on_touchUiEnabled_toggled"]
+[connection signal="toggled" from="parameters/list/dialogAnimationEnabled" to="." method="_on_dialogAnimationEnabled_toggled"]
+[connection signal="pressed" from="parameters/list/saveParameters" to="." method="_on_saveParameters_button_down"]
+[connection signal="timeout" from="savedTimer" to="." method="_on_savedTimer_timeout"]
